@@ -107,6 +107,7 @@ window.onload = function() {
 
     $("#message").on("keyup", function(e) {
       message = $(this).val();
+      $("#save-message").val(message);
       $(this).removeClass("small");
       if ($(this).val().length > 25) $(this).addClass("small");
       draw();
@@ -135,11 +136,7 @@ window.onload = function() {
     });
 
     $("input[name=color].color").on("change", function(e) {
-      mainColor = $("input[name=color].color:checked").val();
-      varient = variants[printType][mainColor];
-      $('#Color').val(mainColor);
-      darkui = mainColor > 3 ? true : false;
-      coloredui = mainColor == 1 ? true : false;
+      updateColor();
       draw();
       updateForm(formUrl,varient);
     });
@@ -160,10 +157,9 @@ window.onload = function() {
         loading(true);
         var dataURL = canvas.toDataURL("image/png");
         document.getElementById('hidden_data').value = dataURL;
-        var fd = new FormData(document.forms["form1"]);
-
+        var fd = new FormData(document.forms["upload-form"]);
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', mainurl+'upload.php', true);
+        xhr.open('POST', mainurl+$("form[name=upload-form]").attr("action"), true);
 
         xhr.upload.onprogress = function(e) {
           loading(true);
@@ -176,6 +172,7 @@ window.onload = function() {
 
         xhr.onload = function(e) {
           var url = e.srcElement.response;
+          console.log(url);
           $(".preloader .text").html("Adding To Cart");
           $("#Code").val(url);
           if (url) {
@@ -183,7 +180,6 @@ window.onload = function() {
           }
         };
         xhr.send(fd);
-
       }
 
     });
@@ -215,6 +211,8 @@ window.onload = function() {
         slideshow();
     });
 
+    setMessage();
+    setColor();
     setDate();
     updateDate_T6(now);
     slideshow();
@@ -222,14 +220,45 @@ window.onload = function() {
     draw();
 
   }
-
+  function setMessage() {
+    var savedMessage = $("#save-message");
+    if(savedMessage.val().length > 0){
+      message = savedMessage.val();
+      $("#message").val(message);
+    }
+  }
+  function setColor() {
+    var savedColor = $("#save-color").val();
+    var colorcheck = $("input[name=color].color").get(savedColor);
+    $(colorcheck).attr('checked', true);
+    updateColor();
+  }
+  function updateColor() {
+    mainColor = $("input[name=color].color:checked").val();
+    varient = variants[printType][mainColor];
+    $('#Color').val(mainColor);
+    $("#save-color").val(mainColor);
+    darkui = mainColor > 3 ? true : false;
+    coloredui = mainColor == 1 ? true : false;
+  }
   function setDate() {
     now = new Date(""+$('#month').find(":selected").text() + "-" + $('#day').find(":selected").text()  + "-" + $('#year').find(":selected").text());
-    console.log($('#year').find(":selected").text(),$('#month').find(":selected").text(),$('#day').find(":selected").text());
+    if($('#date').val() != $("#save-date").val()){
+      now = new Date($("#save-date").val());
+    }
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    $('#day option').filter(function () { return $(this).html() == day; }).attr("selected", "selected");
+
+    var selectMonth = $("#month option").get(now.getMonth());
+    $(selectMonth).attr("selected", "selected");
+
+    $('#year option').filter(function () { return $(this).html() == now.getFullYear(); }).attr("selected", "selected");
+
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     $('#date').val(today);
+    $('#save-date').val(today);
     $('#NewDate').val(today);
   }
 

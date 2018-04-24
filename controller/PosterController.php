@@ -15,15 +15,76 @@ class PosterController extends AppController{
 	public function creator(){
 
 		$date = date("Y/m/d");
-		$color = 1;
-		$message = "This is a message";
+		$color = 0;
+		$message = "";
 
+		if(isset($_GET["name"])){
+			$name = $_GET["name"];
+			$poster = $this->posterDAO->getPosterByName($name);
+			if(!empty($poster)){
+				$date = $poster["date"];
+				$color = $poster["color"];
+				$message = $poster["message"];
+			}else{
+				header("Location: ?page=creator");
+			}
+		}
 
 		$this->set("date",$date);
 		$this->set("color",$color);
 		$this->set("message",$message);
-
 	}
+
+	function upload(){
+
+		$upload_dir = "upload/";
+		$uploadOk = 1;
+		$name = "";
+		$date = "";
+		$color = "";
+		$message = "";
+
+		if(!empty($_POST)) {
+
+				if(!empty($_POST["date"])){
+					$date = $_POST["date"];
+				}else{
+					$uploadOk = 0;
+				}
+				if(!empty($_POST["color"])){
+					$color = $_POST["color"];
+				}else{
+					$uploadOk = 0;
+				}
+				if(!empty($_POST["message"])){
+					$message = $_POST["message"];
+				}
+
+				if($uploadOk == 1){
+					$name = uniqid();
+					$poster = array();
+					if(isset($_GET["name"])){
+						$poster = $this->posterDAO->getPosterByName($_GET["name"]);
+					}
+
+					if(empty($poster)){
+						$uploadOk = $this->posterDAO->addPoster($name,$date,$message,$color);
+					}else{
+						$name = $poster["name"];
+						$uploadOk = $this->posterDAO->updatePoster($name,$date,$message,$color);
+					}
+					$img = $_POST['hidden_data'];
+					$img = str_replace('data:image/png;base64,', '', $img);
+					$img = str_replace(' ', '+', $img);
+					$data = base64_decode($img);
+					$file = $upload_dir . $name . ".png";
+					$success = file_put_contents($file, $data);
+					print $success ? $name : 'Unable to save the file.';
+				}
+		}
+		exit();
+	}
+
 	/*public function map(){
 
 		$content = "";

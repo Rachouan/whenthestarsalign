@@ -4,7 +4,7 @@
         <h1 class="hide">When the stars align.</h1>
         <a href=""><img src="images/assets/logo-black.png" alt="when the stars align."/></a>
       </header>
-      <form method="post" accept-charset="utf-8" name="form1">
+      <form method="post" action="index.php?page=upload<?php if(!empty($_GET["name"])) echo "&name=".$_GET["name"]; ?>" accept-charset="utf-8" name="upload-form">
         <input name="hidden_data" id='hidden_data' type="hidden" />
         <input name="message" type="hidden" id="save-message" value="<?php echo $message; ?>"/>
         <input name="color" type="hidden" id="save-color" value="<?php echo $color; ?>"/>
