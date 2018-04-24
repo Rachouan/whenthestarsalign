@@ -1,0 +1,429 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+@font-face {
+  font-family: Fort;
+  src: url("fonts/Fort-Book.woff"); }
+@font-face {
+  font-family: Fort Light;
+  src: url("fonts/Fort-Light.woff"); }
+*:focus {
+  outline: none; }
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0 !important; }
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Roboto Slab', serif; }
+
+body {
+  font-family: 'Roboto Slab', serif;
+  background-color: #F4F4F4;
+  color: #393E46; }
+
+.hide {
+  display: none; }
+
+.logo {
+  height: 40px;
+  width: 100%;
+  text-align: left; }
+  .logo img {
+    height: 100%; }
+  @media screen and (max-width: 970px) {
+    .logo {
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px 0;
+      text-align: center;
+      display: none; }
+      .logo img {
+        display: inline-block; } }
+
+.editor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: 400px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 40px; }
+  .editor .wrapper {
+    position: static;
+    -webkit-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */
+    -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */ }
+  @media screen and (max-width: 970px) {
+    .editor {
+      width: 100%;
+      height: 170px;
+      top: auto;
+      bottom: 0;
+      padding: 0;
+      white-space: nowrap;
+      overflow: hidden; }
+      .editor #download {
+        padding: 10px 20px !important; }
+      .editor fieldset {
+        padding-top: 20px !important; }
+      .editor textarea {
+        font-size: 1.3em !important; }
+      .editor .buttons-mobile {
+        display: block !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 10px 20px;
+        box-sizing: border-box; }
+        .editor .buttons-mobile .button {
+          display: block; }
+      .editor .buttons {
+        display: none !important; }
+      .editor .wrapper {
+        position: absolute;
+        left: 0; }
+      .editor fieldset {
+        display: inline-block;
+        margin-bottom: 20px;
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 20px; } }
+  .editor header {
+    margin-bottom: 40px; }
+    .editor header h1 {
+      font-size: 40px; }
+  .editor form {
+    float: left;
+    width: 100%; }
+    .editor form[name="form1"] {
+      display: none; }
+    .editor form fieldset {
+      border: none;
+      margin-bottom: 40px; }
+    .editor form label {
+      float: left;
+      clear: both;
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 12px;
+      opacity: 0.4;
+      -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      /* custom */
+      -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      /* custom */ }
+      .editor form label.animate {
+        -webkit-transform: translateY(15px);
+        -moz-transform: translateY(15px);
+        -ms-transform: translateY(15px);
+        transform: translateY(15px);
+        opacity: 0; }
+        .editor form label.animate.open {
+          -webkit-transform: translateY(0px);
+          -moz-transform: translateY(0px);
+          -ms-transform: translateY(0px);
+          transform: translateY(0px);
+          opacity: 0.4; }
+    .editor form input,
+    .editor form select,
+    .editor form textarea {
+      float: left;
+      padding-bottom: 5px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid RGBA(58, 62, 69, 0.2);
+      font-size: 1.5em;
+      background: none;
+      width: 100%;
+      font-family: 'Roboto Slab', serif;
+      font-weight: lighter;
+      color: #393E46; }
+      .editor form input::placeholder,
+      .editor form select::placeholder,
+      .editor form textarea::placeholder {
+        color: RGBA(58, 62, 69, 0.2); }
+    .editor form textarea {
+      width: 100%;
+      min-height: 20px;
+      max-height: 150px;
+      resize: none;
+      -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      /* custom */
+      -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+      /* custom */ }
+      .editor form textarea.small {
+        font-size: 1.1em; }
+    .editor form .date input {
+      font-size: 2em; }
+    .editor form #day {
+      width: 20%;
+      float: left;
+      margin-right: 10px; }
+    .editor form #year {
+      width: 30%; }
+    .editor form #prints div {
+      float: left;
+      width: calc(50% - 10px);
+      box-sizing: border-box;
+      height: 50px;
+      margin-right: 5px;
+      margin-top: 10px;
+      position: relative; }
+      .editor form #prints div input[type="radio"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999999;
+        cursor: pointer;
+        opacity: 0; }
+        .editor form #prints div input[type="radio"]:checked + span, .editor form #prints div input[type="radio"]:hover + span {
+          border: 1px solid #000000;
+          background-color: #000000;
+          color: #ffffff !important; }
+      .editor form #prints div span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 5px 0;
+        text-align: center;
+        box-sizing: border-box;
+        font-size: .9em;
+        vertical-align: middle;
+        box-sizing: border-box;
+        cursor: pointer;
+        border: 1px solid RGBA(58, 62, 69, 0.2);
+        -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        /* custom */
+        -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        /* custom */ }
+        .editor form #prints div span:hover {
+          height: 30px; }
+    .editor form #colors div {
+      float: left;
+      width: calc((100%/5) - 5px);
+      box-sizing: border-box;
+      height: 35px;
+      margin-right: 5px;
+      margin-top: 10px;
+      position: relative; }
+      .editor form #colors div input[type="radio"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999999;
+        cursor: pointer;
+        opacity: 0; }
+        .editor form #colors div input[type="radio"]:checked + span, .editor form #colors div input[type="radio"]:hover + span {
+          height: 30px; }
+      .editor form #colors div span {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 15px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        cursor: pointer;
+        -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        /* custom */
+        -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+        /* custom */ }
+        .editor form #colors div span:hover {
+          height: 30px; }
+        .editor form #colors div span.black {
+          background-color: #000000; }
+        .editor form #colors div span.red {
+          background-color: #F38181; }
+        .editor form #colors div span.green {
+          background-color: #71C9CE; }
+        .editor form #colors div span.white {
+          background-color: #ffffff;
+          border: 1px solid RGBA(58, 62, 69, 0.2); }
+        .editor form #colors div span.colored {
+          background-color: #71C9CE; }
+          .editor form #colors div span.colored::after {
+            content: "";
+            display: block;
+            float: left;
+            width: calc(100%/3);
+            height: 100%;
+            background-color: #FCE38A; }
+          .editor form #colors div span.colored::before {
+            content: "";
+            display: block;
+            float: left;
+            width: calc(100%/3);
+            height: 100%;
+            background-color: #F38181; }
+    .editor form .buttons-mobile {
+      display: none;
+      width: 100%; }
+      .editor form .buttons-mobile .button {
+        color: #ffffff;
+        background-color: #000000;
+        padding: 10px 15px;
+        width: auto;
+        font-size: .9em;
+        cursor: pointer; }
+        .editor form .buttons-mobile .button.prev {
+          float: left; }
+        .editor form .buttons-mobile .button.next {
+          float: right; }
+    .editor form .buttons {
+      display: block; }
+    .editor form #download {
+      float: right;
+      color: #ffffff;
+      background-color: #000000;
+      padding: 20px 25px;
+      width: auto;
+      font-size: .9em;
+      cursor: pointer; }
+    .editor form #date {
+      font-size: 1.5em; }
+    .editor form .fallbackDatePicker {
+      width: 100%;
+      float: left; }
+      .editor form .fallbackDatePicker span {
+        display: block;
+        float: left;
+        position: relative;
+        margin-right: 15px;
+        padding: 15px 0; }
+        .editor form .fallbackDatePicker span::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background-color: RGBA(58, 62, 69, 0.2);
+          bottom: 0;
+          left: 0; }
+        .editor form .fallbackDatePicker span.day {
+          width: calc( 30% - 15px) !important; }
+        .editor form .fallbackDatePicker span.month {
+          width: calc( 40% - 15px) !important; }
+        .editor form .fallbackDatePicker span.year {
+          width: 30% !important;
+          margin-right: 0; }
+        .editor form .fallbackDatePicker span select {
+          width: 100% !important;
+          border-radius: 0 !important;
+          font-size: 1.2em !important;
+          background: none;
+          border: none; }
+
+.preloader {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: #ffffff;
+  top: 100%;
+  left: 0;
+  -webkit-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */
+  -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */ }
+  .preloader.show {
+    top: 0; }
+  @media screen and (max-width: 970px) {
+    .preloader h1 {
+      font-size: calc(.01333*100vw + 24px) !important; }
+    .preloader h2 {
+      font-size: calc(.01333*100vw + 16px) !important; } }
+  .preloader header {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    .preloader header h1, .preloader header h2 {
+      font-weight: lighter; }
+    .preloader header h1 {
+      font-size: 34px;
+      margin-bottom: 20px; }
+    .preloader header h2 {
+      font-size: 20px;
+      color: #393E46;
+      opacity: .5; }
+
+.designer {
+  float: right;
+  width: calc(100% - 400px);
+  height: 100vh;
+  position: relative;
+  overflow: scroll; }
+  @media screen and (max-width: 970px) {
+    .designer {
+      height: calc(100vh - 200px);
+      width: 100%;
+      margin-top: 0px; }
+      .designer canvas {
+        height: 100% !important; } }
+  .designer canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    max-height: 80%;
+    height: auto;
+    width: auto\9;
+    /* ie8 */
+    box-sizing: border-box;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=style.css.map */
