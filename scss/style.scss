@@ -7,7 +7,7 @@ $width-name: max-device-width;
 $break-large: 970px;
 $break-small: 970px;
 $black: #393E46;
-$grey:RGBA(58, 62, 69, .2);
+$grey:RGBA(58, 62, 69, .3);
 
 @font-face {
   font-family: Fort;
@@ -65,8 +65,57 @@ h2,
 h3,
 h4 {
   font-family: 'Roboto Slab', serif;
+  font-weight: normal;
+}
+input,
+select,
+textarea {
+  float: left;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid $grey;
+  font-size: 1.5em;
+  background: none;
+  width: 100%;
+  font-family: 'Roboto Slab', serif;
+  font-weight: lighter;
+  color: $black;
+  &::placeholder {
+    color: $grey;
+  }
+}
+label {
+  float: left;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 12px;
+  opacity: 0.4;
+
+  @include ease-bezier(0.3s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
+
+  &.animate {
+    @include transform(translateY(15px));
+    opacity: 0;
+
+    &.open {
+      @include transform(translateY(0px));
+      opacity: 0.4;
+    }
+  }
 }
 
+textarea{
+  width: 100%;
+  min-height: 20px;
+  max-height: 150px;
+  resize: none;
+  @include ease-bezier(0.3s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
+  &.small{
+    font-size: 1.1em;
+  }
+}
 body {
   font-family: 'Roboto Slab', serif;
   background-color: #F4F4F4;
@@ -174,55 +223,6 @@ body {
       margin-bottom: 40px;
     }
 
-    label {
-      float: left;
-      clear: both;
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: 12px;
-      opacity: 0.4;
-
-      @include ease-bezier(0.3s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
-
-      &.animate {
-        @include transform(translateY(15px));
-        opacity: 0;
-
-        &.open {
-          @include transform(translateY(0px));
-          opacity: 0.4;
-        }
-      }
-    }
-
-    input,
-    select,
-    textarea {
-      float: left;
-      padding-bottom: 5px;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid $grey;
-      font-size: 1.5em;
-      background: none;
-      width: 100%;
-      font-family: 'Roboto Slab', serif;
-      font-weight: lighter;
-      color: $black;
-      &::placeholder {
-        color: $grey;
-      }
-    }
-    textarea{
-      width: 100%;
-      min-height: 20px;
-      max-height: 150px;
-      resize: none;
-      @include ease-bezier(0.3s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
-      &.small{
-        font-size: 1.1em;
-      }
-    }
     .date{
       input{
         font-size: 2em;
@@ -488,4 +488,77 @@ body {
     box-sizing: border-box;
     @include transform(translate(-50%,-50%));
   }
+}
+.email-popup{
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  pointer-events: none;
+  &.open{
+    pointer-events: all;
+    &::before{
+      opacity: 1;
+    }
+    .popup{
+      @include transform(translate(-50%,-50%));
+    }
+  }
+  &::before{
+    content: "";
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $grey;
+    z-index: -1;
+    @include ease-bezier(0.6s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
+  }
+  .popup{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%,100%));
+    width: 400px;
+    height: auto;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 60px;
+    text-align: left;
+    @include ease-bezier(0.6s,cubic-bezier(0.19, 0.89, 0.21, 0.97));
+    header{
+      margin-bottom: 40px;
+      h1{
+        margin-bottom: 10px;
+        font-size: 1.8em!important;
+      }
+      p{
+        font-weight: lighter;
+        opacity: .7;
+      }
+    }
+    input{
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      padding: 15px 0;
+    }
+    .button{
+      width: 100%;
+      float: left;
+      color: #ffffff;
+      background-color: #000000;
+      padding: 20px 25px;
+      box-sizing: border-box;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  }
+
 }

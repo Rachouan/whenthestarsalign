@@ -19,7 +19,75 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Roboto Slab', serif; }
+  font-family: 'Roboto Slab', serif;
+  font-weight: normal; }
+
+input,
+select,
+textarea {
+  float: left;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid RGBA(58, 62, 69, 0.3);
+  font-size: 1.5em;
+  background: none;
+  width: 100%;
+  font-family: 'Roboto Slab', serif;
+  font-weight: lighter;
+  color: #393E46; }
+  input::placeholder,
+  select::placeholder,
+  textarea::placeholder {
+    color: RGBA(58, 62, 69, 0.3); }
+
+label {
+  float: left;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 12px;
+  opacity: 0.4;
+  -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */
+  -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */ }
+  label.animate {
+    -webkit-transform: translateY(15px);
+    -moz-transform: translateY(15px);
+    -ms-transform: translateY(15px);
+    transform: translateY(15px);
+    opacity: 0; }
+    label.animate.open {
+      -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+      transform: translateY(0px);
+      opacity: 0.4; }
+
+textarea {
+  width: 100%;
+  min-height: 20px;
+  max-height: 150px;
+  resize: none;
+  -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */
+  -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+  /* custom */ }
+  textarea.small {
+    font-size: 1.1em; }
 
 body {
   font-family: 'Roboto Slab', serif;
@@ -115,70 +183,6 @@ body {
     .editor form fieldset {
       border: none;
       margin-bottom: 40px; }
-    .editor form label {
-      float: left;
-      clear: both;
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: 12px;
-      opacity: 0.4;
-      -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      /* custom */
-      -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      /* custom */ }
-      .editor form label.animate {
-        -webkit-transform: translateY(15px);
-        -moz-transform: translateY(15px);
-        -ms-transform: translateY(15px);
-        transform: translateY(15px);
-        opacity: 0; }
-        .editor form label.animate.open {
-          -webkit-transform: translateY(0px);
-          -moz-transform: translateY(0px);
-          -ms-transform: translateY(0px);
-          transform: translateY(0px);
-          opacity: 0.4; }
-    .editor form input,
-    .editor form select,
-    .editor form textarea {
-      float: left;
-      padding-bottom: 5px;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid RGBA(58, 62, 69, 0.2);
-      font-size: 1.5em;
-      background: none;
-      width: 100%;
-      font-family: 'Roboto Slab', serif;
-      font-weight: lighter;
-      color: #393E46; }
-      .editor form input::placeholder,
-      .editor form select::placeholder,
-      .editor form textarea::placeholder {
-        color: RGBA(58, 62, 69, 0.2); }
-    .editor form textarea {
-      width: 100%;
-      min-height: 20px;
-      max-height: 150px;
-      resize: none;
-      -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      /* custom */
-      -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
-      /* custom */ }
-      .editor form textarea.small {
-        font-size: 1.1em; }
     .editor form .date input {
       font-size: 2em; }
     .editor form #day {
@@ -221,7 +225,7 @@ body {
         vertical-align: middle;
         box-sizing: border-box;
         cursor: pointer;
-        border: 1px solid RGBA(58, 62, 69, 0.2);
+        border: 1px solid RGBA(58, 62, 69, 0.3);
         -webkit-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
         -moz-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
         -o-transition: all 0.3s cubic-bezier(0.19, 0.89, 0.21, 0.97);
@@ -281,7 +285,7 @@ body {
           background-color: #71C9CE; }
         .editor form #colors div span.white {
           background-color: #ffffff;
-          border: 1px solid RGBA(58, 62, 69, 0.2); }
+          border: 1px solid RGBA(58, 62, 69, 0.3); }
         .editor form #colors div span.colored {
           background-color: #71C9CE; }
           .editor form #colors div span.colored::after {
@@ -338,7 +342,7 @@ body {
           position: absolute;
           width: 100%;
           height: 1px;
-          background-color: RGBA(58, 62, 69, 0.2);
+          background-color: RGBA(58, 62, 69, 0.3);
           bottom: 0;
           left: 0; }
         .editor form .fallbackDatePicker span.day {
@@ -425,5 +429,91 @@ body {
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); }
+
+.email-popup {
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  pointer-events: none; }
+  .email-popup.open {
+    pointer-events: all; }
+    .email-popup.open::before {
+      opacity: 1; }
+    .email-popup.open .popup {
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+  .email-popup::before {
+    content: "";
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: RGBA(58, 62, 69, 0.3);
+    z-index: -1;
+    -webkit-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */
+    -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */ }
+  .email-popup .popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, 100%);
+    -moz-transform: translate(-50%, 100%);
+    -ms-transform: translate(-50%, 100%);
+    transform: translate(-50%, 100%);
+    width: 400px;
+    height: auto;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 60px;
+    text-align: left;
+    -webkit-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition: all 0.6s cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */
+    -webkit-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -moz-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    -o-transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    transition-timing-function: cubic-bezier(0.19, 0.89, 0.21, 0.97);
+    /* custom */ }
+    .email-popup .popup header {
+      margin-bottom: 40px; }
+      .email-popup .popup header h1 {
+        margin-bottom: 10px;
+        font-size: 1.8em !important; }
+      .email-popup .popup header p {
+        font-weight: lighter;
+        opacity: .7; }
+    .email-popup .popup input {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      padding: 15px 0; }
+    .email-popup .popup .button {
+      width: 100%;
+      float: left;
+      color: #ffffff;
+      background-color: #000000;
+      padding: 20px 25px;
+      box-sizing: border-box;
+      font-size: 1em;
+      cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

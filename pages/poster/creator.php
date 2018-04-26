@@ -9,6 +9,7 @@
         <input name="message" type="hidden" id="save-message" value="<?php echo $message; ?>"/>
         <input name="color" type="hidden" id="save-color" value="<?php echo $color; ?>"/>
         <input name="date" type="hidden" id="save-date" value="<?php echo $date; ?>"/>
+        <input name="email" type="hidden" id="save-email"/>
       </form>
       <form id="checkout" action="https://whenthestarsalign.com/cart/add/7365509644349" method="post" data-section="product-customizable-template">
         <div class="hide">

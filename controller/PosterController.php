@@ -43,6 +43,7 @@ class PosterController extends AppController{
 		$date = "";
 		$color = "";
 		$message = "";
+		$email = "";
 
 		if(!empty($_POST)) {
 
@@ -59,7 +60,10 @@ class PosterController extends AppController{
 				if(!empty($_POST["message"])){
 					$message = $_POST["message"];
 				}
-
+				if(!empty($_POST["email"])){
+					$email = $_POST["email"];
+				}
+				
 				if($uploadOk == 1){
 					$name = uniqid();
 					$poster = array();

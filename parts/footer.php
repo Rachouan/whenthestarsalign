@@ -1,3 +1,17 @@
+<section class="email-popup">
+  <div class="popup">
+    <header>
+      <h1>Save your design?</h1>
+      <p>You can come back later and edit it anytime.</p>
+    </header>
+    <form id="email-optin">
+        <label for="emailoptin" class="animate">Email</label>
+        <input type="email" name="email" id="emailoptin" placeholder="Email"/>
+        <input type="submit" value="Save Design" class="button"/>
+    </form>
+    </div>
+</section>
+
 </main>
   <script async src="js/jquery.min.js"></script>
   <script async src="js/datepicker.js?v0.7"></script>

@@ -30,6 +30,8 @@ window.onload = function() {
   var legendeSteps = 0;
 
   var message = "";
+  var saved = false;
+  var postername = "";
 
   var currentDate;
   var slide = 1;
@@ -123,6 +125,10 @@ window.onload = function() {
       });
     });
 
+    $(".email-popup #emailoptin").on("keyup", function() {
+      $("#save-email").val($(this).val());
+    });
+
     $("input,textarea").on("focus", function(e) {
       $(this).attr("placeholder", "");
       var label = $(this).parent().find("label");
@@ -152,34 +158,13 @@ window.onload = function() {
     $(".download").on("click", function(e) {
       e.preventDefault();
 
-      var image = null
-      if (image == null) {
-        loading(true);
-        var dataURL = canvas.toDataURL("image/png");
-        document.getElementById('hidden_data').value = dataURL;
-        var fd = new FormData(document.forms["upload-form"]);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', mainurl+$("form[name=upload-form]").attr("action"), true);
+      if(!saved){
+        saved = true;
+        $(".email-popup").addClass("open");
+        return false;
+      }else{
 
-        xhr.upload.onprogress = function(e) {
-          loading(true);
-          if (e.lengthComputable) {
-            var percentComplete = (e.loaded / e.total) * 100;
-            $(".preloader .precentage").html(Math.round(percentComplete)+"%");
-            console.log(percentComplete);
-          }
-        };
-
-        xhr.onload = function(e) {
-          var url = e.srcElement.response;
-          console.log(url);
-          $(".preloader .text").html("Adding To Cart");
-          $("#Code").val(url);
-          if (url) {
-            $("#checkout").submit();
-          }
-        };
-        xhr.send(fd);
+      }
       }
 
     });
@@ -220,6 +205,38 @@ window.onload = function() {
     draw();
 
   }
+
+  function saveDesign() {
+    var image = null;
+    if (image == null) {
+      loading(true);
+      var dataURL = canvas.toDataURL("image/png");
+      document.getElementById('hidden_data').value = dataURL;
+      var fd = new FormData(document.forms["upload-form"]);
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', mainurl+$("form[name=upload-form]").attr("action"), true);
+
+      xhr.upload.onprogress = function(e) {
+        loading(true);
+        if (e.lengthComputable) {
+          var percentComplete = (e.loaded / e.total) * 100;
+          $(".preloader .precentage").html(Math.round(percentComplete)+"%");
+          console.log(percentComplete);
+        }
+      };
+
+      xhr.onload = function(e) {
+        var url = e.srcElement.response;
+        postername = url;
+        $(".preloader .text").html("Adding To Cart");
+        $("#Code").val(url);
+        if (url) {
+          $("#checkout").submit();
+        }
+      };
+      xhr.send(fd);
+  }
+
   function setMessage() {
     var savedMessage = $("#save-message");
     if(savedMessage.val().length > 0){
