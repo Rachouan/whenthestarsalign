@@ -1,22 +1,39 @@
 <section class="email-popup">
   <div class="popup">
-    <header>
-      <h1>Save your design?</h1>
-      <p>You can come back later and edit it anytime.</p>
-    </header>
-    <form id="email-optin">
-        <label for="emailoptin" class="animate">Email</label>
-        <input type="email" name="email" id="emailoptin" placeholder="Email"/>
-        <input type="submit" value="Save Design" class="button"/>
-    </form>
+    <div class="form">
+      <header>
+        <h1>Save your design?</h1>
+        <p>You can come back later and edit it anytime.</p>
+      </header>
+      <form id="email-optin">
+          <label for="emailoptin" class="animate">Email</label>
+          <input type="email" name="email" id="emailoptin" placeholder="Email"/>
+          <input type="submit" value="Save Design" class="button" id="save"/>
+      </form>
+      <button class="checkout" class="skip">Skip and Check Out</button>
     </div>
+    <div class="complete">
+      <header>
+        <h1>Your design was saved</h1>
+        <p>We have sent your design to <span class="email-adress">info@rachouanrejeb.be</span> be sure to check your spam folder if you can't find it.</p>
+        <button class="button checkout"> Checkout Now </button>
+      </header>
+    </div>
+  </div>
+</section>
+
+<section class="preloader">
+  <header>
+    <h1 class="precentage">100%</h1>
+    <h2 class="text">Creating Your Poster</h2>
+  </header>
 </section>
 
 </main>
   <script async src="js/jquery.min.js"></script>
   <script async src="js/datepicker.js?v0.7"></script>
   <script async src="js/planets.js?v0.7"></script>
-  <script async src="js/app.js?v0.7"></script>
+  <script async src="js/app.js?v0.8"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117922911-1"></script>

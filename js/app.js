@@ -6,8 +6,8 @@ window.onload = function() {
     delta,
     then = Date.now();
 
-  var posterWidth = 2700,
-    posterHeight = 3600;
+  var posterWidth = 3150,
+    posterHeight = 4050;
 
   var varient = 7365509644349;
   var formUrl = "https://whenthestarsalign.com/cart/add/";
@@ -15,9 +15,9 @@ window.onload = function() {
   var mainurl = "";
   var printType = 0;
   var variants = [
-    ["7365509644349","7433775153213","7433775218749","7433775284285","7433775153213"]
-    ,["7591346012221","7591346044989","7591346077757","7591346110525","7591346143293"]
-    ];
+    ["7365509644349", "7433775153213", "7433775218749", "7433775284285", "7433775153213"],
+    ["7591346012221", "7591346044989", "7591346077757", "7591346110525", "7591346143293"]
+  ];
 
 
   var mainColors = ["#000000", "#000000", "#F38181", "#71C9CE", "#ffffff"],
@@ -31,7 +31,9 @@ window.onload = function() {
 
   var message = "";
   var saved = false;
+  var savedEmail = false;
   var postername = "";
+  var mainEmail = "";
 
   var currentDate;
   var slide = 1;
@@ -98,7 +100,7 @@ window.onload = function() {
 
     varient = $("input[name=color]:checked").data("varient");
 
-    $("#day,#month,#year").on("change",function (e) {
+    $("#day,#month,#year").on("change", function(e) {
       setDate();
       updateDate_T6(now);
       run_T6();
@@ -144,7 +146,7 @@ window.onload = function() {
     $("input[name=color].color").on("change", function(e) {
       updateColor();
       draw();
-      updateForm(formUrl,varient);
+      updateForm(formUrl, varient);
     });
 
     $("input[name=print].print").on("change", function(e) {
@@ -152,48 +154,67 @@ window.onload = function() {
       printType = $("input[name=print]:checked").val();
       console.log(printType);
       draw();
-      updateForm(formUrl,varient);
+      updateForm(formUrl, varient);
+    });
+
+    $("#email-optin").on("submit", function(e) {
+      e.preventDefault();
+      mainEmail = $("#emailoptin").val();
+      if (validateEmail(mainEmail)) {
+        savedEmail = true;
+        saveDesign();
+      }else{
+        $("#emailoptin").addClass("error");
+      }
+
+    });
+
+    $(".checkout").on("click", function(e) {
+      e.preventDefault();
+      savedEmail = false;
+      if(!saved){
+        saveDesign();
+      }else{
+        checkout();
+      }
+
     });
 
     $(".download").on("click", function(e) {
       e.preventDefault();
-
-      if(!saved){
-        saved = true;
-        $(".email-popup").addClass("open");
+      if (!saved) {
+        openEmail();
         return false;
-      }else{
-
+      } else {
+        saveDesign();
       }
-      }
-
     });
 
-    $(".buttons-mobile .button").on("click",function(e){
+    $(".buttons-mobile .button").on("click", function(e) {
       e.preventDefault();
       switch ($(this).attr("class")) {
         case "button prev":
-        slide --;
+          slide--;
           break;
         case "button next":
-        slide ++;
+          slide++;
           break;
         default:
       }
 
 
-      if(slide < 1){
+      if (slide < 1) {
         slide = 1;
       }
-      if(slide > $(".editor .slide").length){
+      if (slide > $(".editor .slide").length) {
         slide = $(".editor fieldset").length;
       }
 
       slideshow();
     });
 
-    $(window).on("resize",function (e) {
-        slideshow();
+    $(window).on("resize", function(e) {
+      slideshow();
     });
 
     setMessage();
@@ -206,50 +227,84 @@ window.onload = function() {
 
   }
 
+  function openEmail() {
+    $(".email-popup").addClass("open");
+  }
+
   function saveDesign() {
+
     var image = null;
-    if (image == null) {
+    if (postername.length < 1) {
       loading(true);
       var dataURL = canvas.toDataURL("image/png");
       document.getElementById('hidden_data').value = dataURL;
+
       var fd = new FormData(document.forms["upload-form"]);
+
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', mainurl+$("form[name=upload-form]").attr("action"), true);
+      xhr.open('POST', mainurl + $("form[name=upload-form]").attr("action"), true);
 
       xhr.upload.onprogress = function(e) {
         loading(true);
         if (e.lengthComputable) {
           var percentComplete = (e.loaded / e.total) * 100;
-          $(".preloader .precentage").html(Math.round(percentComplete)+"%");
-          console.log(percentComplete);
+          $(".preloader .precentage").html(Math.round(percentComplete) + "%");
         }
       };
 
       xhr.onload = function(e) {
         var url = e.srcElement.response;
         postername = url;
-        $(".preloader .text").html("Adding To Cart");
-        $("#Code").val(url);
-        if (url) {
-          $("#checkout").submit();
+        $("#Code").val(postername);
+        loading(false);
+        if(postername){
+          saved = true;
         }
+        if (savedEmail) {
+          if(postername){
+            $(".email-popup .popup").addClass("success");
+            sendEmail(mainEmail, postername);
+            savedEmail = false;
+          }
+        }else{
+          if (saved) {
+            checkout();
+          }
+        }
+
+
       };
       xhr.send(fd);
+
+    } else {
+      checkout();
+    }
+  }
+
+  function checkout() {
+    $("#checkout").submit();
+  }
+
+  function sendEmail(email, code) {
+    console.log("An email has been sent to " + email + " with design code" + code);
+    return true;
   }
 
   function setMessage() {
     var savedMessage = $("#save-message");
-    if(savedMessage.val().length > 0){
+    if (savedMessage.val().length > 0) {
       message = savedMessage.val();
       $("#message").val(message);
     }
   }
+
   function setColor() {
     var savedColor = $("#save-color").val();
     var colorcheck = $("input[name=color].color").get(savedColor);
     $(colorcheck).attr('checked', true);
     updateColor();
   }
+
   function updateColor() {
     mainColor = $("input[name=color].color:checked").val();
     varient = variants[printType][mainColor];
@@ -258,20 +313,25 @@ window.onload = function() {
     darkui = mainColor > 3 ? true : false;
     coloredui = mainColor == 1 ? true : false;
   }
+
   function setDate() {
-    now = new Date(""+$('#month').find(":selected").text() + "-" + $('#day').find(":selected").text()  + "-" + $('#year').find(":selected").text());
-    if($('#date').val() != $("#save-date").val()){
+    now = new Date("" + $('#month').find(":selected").text() + "-" + $('#day').find(":selected").text() + "-" + $('#year').find(":selected").text());
+    if ($('#date').val() != $("#save-date").val()) {
       now = new Date($("#save-date").val());
     }
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-    $('#day option').filter(function () { return $(this).html() == day; }).attr("selected", "selected");
+    $('#day option').filter(function() {
+      return $(this).html() == day;
+    }).attr("selected", "selected");
 
     var selectMonth = $("#month option").get(now.getMonth());
     $(selectMonth).attr("selected", "selected");
 
-    $('#year option').filter(function () { return $(this).html() == now.getFullYear(); }).attr("selected", "selected");
+    $('#year option').filter(function() {
+      return $(this).html() == now.getFullYear();
+    }).attr("selected", "selected");
 
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     $('#date').val(today);
@@ -279,25 +339,27 @@ window.onload = function() {
     $('#NewDate').val(today);
   }
 
-  function updateForm(url,varient) {
-      $("#checkout").attr("action",url+varient);
+  function updateForm(url, varient) {
+    $("#checkout").attr("action", url + varient);
   }
 
   function slideshow() {
 
     $(".buttons-mobile #download").hide();
-    if( slide <= 1){
+    if (slide <= 1) {
       $(".buttons-mobile .prev").hide();
-    }else if(slide >= $(".editor .slide").length){
+    } else if (slide >= $(".editor .slide").length) {
       $(".buttons-mobile #download").show();
       $(".buttons-mobile .next").hide();
-    }else{
+    } else {
       $(".buttons-mobile .prev").show();
       $(".buttons-mobile .next").show();
     }
 
-    var scrollTo = $(".editor .slide:nth-child("+ (slide) +")").position().left;
-    $(".wrapper").css({'left': "-"+scrollTo+"px"});
+    var scrollTo = $(".editor .slide:nth-child(" + (slide) + ")").position().left;
+    $(".wrapper").css({
+      'left': "-" + scrollTo + "px"
+    });
   }
 
   function draw() {
@@ -332,12 +394,12 @@ window.onload = function() {
   }
 
   function addNewlines(str) {
-    return str.replace(/(.{1,50})(?:\n|$| )/g, "$1\n");;
+    return str.replace(/(.{1,50})(?:\n|$| )/g, "$1\n");
   }
 
   function loading(loading) {
     $(".preloader").removeClass("show");
-    if(loading){
+    if (loading) {
       $(".preloader").addClass("show");
     }
   }
@@ -389,53 +451,53 @@ window.onload = function() {
         body = {
           x: T6.xNeptune,
           y: T6.yNeptune
-        }
+        };
         break;
       case "uranus":
         body = {
           x: T6.xUranus,
           y: T6.yUranus
-        }
+        };
 
         break;
       case "saturn":
         body = {
           x: T6.xSaturn,
           y: T6.ySaturn
-        }
+        };
         break;
       case "mars":
         body = {
           x: T6.xMars,
           y: T6.yMars
-        }
+        };
         break;
       case "venus":
         body = {
           x: T6.xVenus,
           y: T6.yVenus
-        }
+        };
         break;
 
       case "jupiter":
         body = {
           x: T6.xJupiter,
           y: T6.yJupiter
-        }
+        };
         break;
 
       case "mercury":
         body = {
           x: T6.xMercury,
           y: T6.yMercury
-        }
+        };
         break;
 
       case "earth":
         body = {
           x: T6.xEarth,
           y: T6.yEarth
-        }
+        };
         break;
       default:
 
@@ -487,14 +549,14 @@ window.onload = function() {
 
           context.save();
           context.translate(x, y);
-          context.globalAlpha = .5;
+          context.globalAlpha = 0.5;
           context.rotate((Math.random() * 360) * Math.PI / 180);
           context.drawImage(astroid, -astroid.width / 2, -astroid.height / 2);
           context.restore();
         }
-      }
+      };
       var folder = darkui ? "black" : "white";
-      astroid.src = mainurl+"images/planetsv2/" + folder + "/astroid.png";
+      astroid.src = mainurl + "images/planetsv2/" + folder + "/astroid.png";
 
 
     }
@@ -537,7 +599,7 @@ window.onload = function() {
           context.drawImage(img, legendeX - img.width / 2, legendeY - img.height / 2);
         }
 
-      }
+      };
       var folder = "white";
       if (darkui) {
         folder = "black";
@@ -545,32 +607,31 @@ window.onload = function() {
         folder = "color";
       }
 
-      img.src = mainurl+"images/planetsv2/" + folder + "/" + this.name.toLowerCase() + ".png";
+      img.src = mainurl + "images/planetsv2/" + folder + "/" + this.name.toLowerCase() + ".png";
 
     }
 
-  }
+  };
   init();
 
   function wrapText(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
+    var words = text.split(' ');
+    var line = '';
 
-        for(var n = 0; n < words.length; n++) {
-          var testLine = line + words[n] + ' ';
-          var metrics = context.measureText(testLine);
-          var testWidth = metrics.width;
-          if (testWidth > maxWidth && n > 0) {
-            context.fillText(line, x, y);
-            line = words[n] + ' ';
-            y += lineHeight;
-          }
-          else {
-            line = testLine;
-          }
-        }
+    for (var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = context.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
         context.fillText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+      } else {
+        line = testLine;
       }
+    }
+    context.fillText(line, x, y);
+  }
 
   function drawString(context, text, posX, posY, textColor, rotation, font, fontSize, lineHeight) {
     var lines = text.split("\n");
@@ -601,11 +662,11 @@ window.onload = function() {
     var len;
 
     for (i = 0, len = str.length; i < len; i += n) {
-      ret.push(str.substr(i, n))
+      ret.push(str.substr(i, n));
     }
 
-    return ret
-  };
+    return ret;
+  }
 
   function formatDate(date) {
     var monthNames = [
@@ -615,10 +676,15 @@ window.onload = function() {
       "November", "December"
     ];
 
-    var day = date.getDate()+1;
+    var day = date.getDate() + 1;
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
 
     return monthNames[monthIndex] + ' ' + day + ', ' + year;
+  }
+
+  function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 };

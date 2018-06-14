@@ -105,9 +105,3 @@
     <section class="designer">
       <canvas id="cnvs"></canvas>
     </section>
-    <section class="preloader">
-      <header>
-        <h1 class="precentage">100%</h1>
-        <h2 class="text">Creating Your Poster</h2>
-      </header>
-    </section>

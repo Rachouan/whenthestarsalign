@@ -440,6 +440,12 @@ body {
   text-align: center;
   display: flex;
   pointer-events: none; }
+  .email-popup .popup .complete {
+    display: none; }
+  .email-popup .popup.success .complete {
+    display: block; }
+  .email-popup .popup.success .form {
+    display: none; }
   .email-popup.open {
     pointer-events: all; }
     .email-popup.open::before {

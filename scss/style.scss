@@ -499,6 +499,19 @@ body {
   text-align: center;
   display: flex;
   pointer-events: none;
+  .popup{
+    .complete{
+      display: none;
+    }
+    &.success{
+      .complete{
+        display: block;
+      }
+      .form{
+        display: none;
+      }
+    }
+  }
   &.open{
     pointer-events: all;
     &::before{
